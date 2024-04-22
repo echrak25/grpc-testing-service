@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "demo.interfaces.grpc";
+
+service GroupService {
+  // Unary RPC
+  rpc getGroup(Group) returns (Group) {}
+
+  // Server streaming RPC
+  rpc listGroups(Empty) returns (stream Group) {}
+
+  // Client streaming RPC
+  rpc batchCreateGroups(stream Group) returns (APIResponse) {}
+
+  // Bidirectional streaming RPC
+  rpc bidiUpdateGroups(stream Group) returns (stream APIResponse) {}
+}
+
+message Group {
+  int64 groupID = 1;
+  string groupParent = 2;
+  string groupName = 3;
+  int64 groupNumberMembers = 4;
+}
+
+message APIResponse {
+  string responsemessage = 1;
+  int32 responseCode = 2;
+}
+
+message Empty {}
